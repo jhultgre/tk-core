@@ -1534,7 +1534,7 @@ class PathCache(object):
 
         try:
             db_path = self._path_to_dbpath(relative_path)
-            res = c.execute("SELECT entity_type, entity_id, entity_name FROM path_cache WHERE path = ? AND root = ? and primary_entity = 1", (db_path, root_path))
+            res = c.execute("SELECT entity_type, entity_id, entity_name FROM path_cache WHERE path = ? COLLATE NOCASE AND root = ? and primary_entity = 1", (db_path, root_path))
             data = list(res)
         finally:
             if cursor is None:
