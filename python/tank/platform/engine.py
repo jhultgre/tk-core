@@ -23,6 +23,7 @@ import traceback
 import inspect
 import weakref
 import threading
+from collections import OrderedDict
 
 from ..util.qt_importer import QtImporter
 from ..util.loader import load_plugin
@@ -80,8 +81,8 @@ class Engine(TankBundle):
         self.__applications = {}
         self.__application_pool = {}
         self.__shared_frameworks = {}
-        self.__commands = {}
-        self.__command_pool = {}
+        self.__commands = OrderedDict()
+        self.__command_pool = OrderedDict()
         self.__panels = {}
         self.__currently_initializing_app = None
         
@@ -2469,7 +2470,7 @@ class Engine(TankBundle):
         # The commands dict will be repopulated either by new app inits,
         # or by pulling existing commands for reused apps from the persistant
         # cache of commands.
-        self.__commands = dict()
+        self.__commands = OrderedDict()
         self.__register_reload_command()
 
         for app_instance_name in self.__env.get_apps(self.__engine_instance_name):
